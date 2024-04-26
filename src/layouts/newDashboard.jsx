@@ -11,6 +11,7 @@ import supabase from "@/utils/supabaseClient";
 import { useUser } from "@clerk/clerk-react";
 import axios from "axios";
 import { PostForm } from "@/components/PostCreateForm";
+import DropdownFilter from "@/components/Filters";
 
 const NewDashboard = () => {
   const [isFocused, setIsFocused] = useState(false);
@@ -42,8 +43,13 @@ const NewDashboard = () => {
       <div className='mainContainer'>
         <Sidebar />
 
-        <div className='mainSection'>
+        <div className='mainSection flex flex-col items-center justify-center w-full'>
           <PostForm userData={user} />
+          <div className='w-full flex items-center justify-between px-4 mt-4'>
+            <DropdownFilter text={"Filter by Tag"} />
+            <DropdownFilter text={"Filter by Date"} />
+            <DropdownFilter text={"Filter by Friends"} />
+          </div>
           {data?.map((val, index) => {
             return <Post key={index} setData={setData} userData={val} />;
           })}

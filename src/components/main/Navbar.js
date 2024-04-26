@@ -19,23 +19,13 @@ const Navbar = () => {
   const [searchedUser, setSearchedUser] = useState(userData);
   const [searchPanel, setSearchPanel] = useState(false);
 
-  const searchUsers = (value) => {
-    let searchedUser = userData.filter((user) => {
-      return user.name.toLowerCase().includes(value.toLowerCase());
-    });
-    setSearchedUser(
-      searchedUser.length === 0 ? [{ error: "User Not Found" }] : searchedUser
+  const searchUsers = async (value) => {
+    const response = await axios.get(
+      `http://34.42.91.185:5000/BotResponse/${value}`
     );
+    console.log(response.data);
+    // search tags
   };
-
-  useEffect(() => {
-    window.addEventListener("click", (e) => {
-      if (!e.target.closest(".userProfile")) {
-        setProfileMenu(false);
-      }
-    });
-  }, []);
-
   return (
     <>
       <div className='inNavbar'>

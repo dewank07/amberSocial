@@ -3,17 +3,45 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Form } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Select } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
+import axios from "axios";
 
 export function PostForm({ userData }: any) {
+  const url = "https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/posts";
+  const headers = {
+    apikey:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1meXBudGJzcmR5bWNuYmp0ZGNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQxMjM4ODksImV4cCI6MjAyOTY5OTg4OX0.UehQ_jBquTXgZd6XcDZJU_esJcOd-Ux1erkqLX9Go40",
+  };
+  const [formData, setFormData] = useState({
+    type: "",
+    media: "",
+    user_id: "",
+    caption: "",
+    tags: "",
+  });
+  const handleChange = (e: any) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    // Add your form submission logic here
+    await axios
+      .post(url, formData, { headers })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -29,37 +57,74 @@ export function PostForm({ userData }: any) {
           <Button className='shadow-xl\'>Create Post</Button>
         </div>
       </DialogTrigger>
-      <DialogContent className='sm:max-w-[425px]'>
+      <DialogContent className='sm:max-w-[400px] max-h-[90%] overflow-y-scroll'>
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
+          <DialogTitle>Create Post</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
+            Share what you are feeling with the world.
           </DialogDescription>
         </DialogHeader>
-        <div className='grid gap-4 py-4'>
-          <Form>
-            <Select label='Type' name='type'>
+        <div className='grid-cols-2 gap-2 py-1 overflow-y-auto'>
+          <form onSubmit={handleSubmit}>
+            <label className='block mb-2' htmlFor='type'>
+              Type
+            </label>
+            <select
+              name='type'
+              onChange={handleChange}
+              value={formData.type}
+              className='w-full p-2 mb-4 border border-gray-300 rounded-md'
+            >
               <option value='recommendation'>Recommendation</option>
               <option value='request'>Request</option>
               <option value='service'>Service</option>
-            </Select>
+            </select>
 
-            <Input label='Media' name='media' type='url' />
+            <label className='block mb-2' htmlFor='media'>
+              Media
+            </label>
+            <input
+              type='url'
+              name='media'
+              onChange={handleChange}
+              value={formData.media}
+              className='w-full p-2 mb-4 border border-gray-300 rounded-md'
+            />
 
-            <Input label='User ID' name='user_id' type='text' />
+            <label className='block mb-2' htmlFor='user_id'>
+              User ID
+            </label>
+            <input
+              type='text'
+              name='user_id'
+              onChange={handleChange}
+              value={formData.user_id}
+              className='w-full p-2 mb-4 border border-gray-300 rounded-md'
+            />
 
-            <Textarea label='Caption' name='caption' />
+            <label className='block mb-2' htmlFor='caption'>
+              Caption
+            </label>
+            <textarea
+              name='caption'
+              onChange={handleChange}
+              value={formData.caption}
+              className='w-full p-2 mb-4 h-24 border border-gray-300 rounded-md'
+            ></textarea>
 
-            <Input label='Tags' name='tags' type='text' />
-
-            {/* Add any other form fields you need */}
-
-            <button type='submit'>Submit</button>
-          </Form>
+            <label className='block mb-2' htmlFor='tags'>
+              Tags
+            </label>
+            <input
+              type='text'
+              name='tags'
+              onChange={handleChange}
+              value={formData.tags}
+              className='w-full p-2 mb-4 border border-gray-300 rounded-md'
+            />
+            <Button type='submit'>Create Post</Button>
+          </form>
         </div>
-        <DialogFooter>
-          <Button type='submit'>Save changes</Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
