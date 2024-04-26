@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MdSearch, MdClose, MdSettings } from "react-icons/md";
 import { FaAngleRight } from "react-icons/fa";
 import { FaAngleDown, FaFaceFrown } from "react-icons/fa6";
@@ -11,6 +11,8 @@ import { useClickOutside } from "@mantine/hooks";
 import { UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import LOGO from "@/assets/logo.png";
+import axios from "axios";
+import { PostContext } from "@/context/postData";
 const Navbar = () => {
   const [isFocused, setIsFocused] = useState(false);
   const ref = useClickOutside(() => setIsFocused(false));
@@ -18,12 +20,12 @@ const Navbar = () => {
   const [ProfileMenu, setProfileMenu] = useState(false);
   const [searchedUser, setSearchedUser] = useState(userData);
   const [searchPanel, setSearchPanel] = useState(false);
+  const { posts, setPosts, fetchPosts } = useContext(PostContext);
 
   const searchUsers = async (value) => {
     const response = await axios.get(
       `http://34.42.91.185:5000/BotResponse/${value}`
     );
-    console.log(response.data);
     // search tags
   };
   return (
@@ -48,6 +50,9 @@ const Navbar = () => {
               onFocus={() => setIsFocused(true)}
               onChange={(e) => setSearchValue(e.target.value)}
               onKeyUp={(e) => searchUsers(e.target.value)}
+              onBlur={() => {
+                setIsFocused(false);
+              }}
             />
             <div
               className={`inSearchCloseBtn ${
@@ -66,41 +71,6 @@ const Navbar = () => {
               />
             </div>
           </div>
-
-          <motion.div
-            className='searchResult'
-            initial={{ y: 30, opacity: 0, pointerEvents: "none" }}
-            animate={{
-              y: isFocused ? 0 : 30,
-              opacity: isFocused ? 1 : 0,
-              pointerEvents: isFocused ? "auto" : "none",
-            }}
-          >
-            {isFocused &&
-              searchedUser.map((user, index) => {
-                if (user.error) {
-                  return (
-                    <div className='noUserFound' key={index}>
-                      <FaFaceFrown />
-                      <h3>Sorry {user.error}</h3>
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div
-                      key={index}
-                      className='searchResultItem'
-                      onClick={() => setSearchValue(user.name)}
-                    >
-                      <div className='userImage'>
-                        <img src={`${user.profilePic}`} alt='' />
-                      </div>
-                      <h3>{user.name}</h3>
-                    </div>
-                  );
-                }
-              })}
-          </motion.div>
         </div>
         <div className='inNavRightOptions'>
           <div className='mobileSearchBtn' onClick={() => setSearchPanel(true)}>

@@ -1,15 +1,36 @@
-import React, { useState } from "react";
+import { PostContext } from "@/context/postData";
+import React, { useContext, useState } from "react";
+import axios from "axios";
 
 const DropdownFilter = ({ text }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedTag, setSelectedTag] = useState("");
+  const { posts, setPosts, fetchPosts } = useContext(PostContext);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const filterPosts = (tag) => {
+  const filterPosts = async (tag) => {
     setSelectedTag(tag);
+    if (tag === "desc") {
+      try {
+        console.log("hello");
+        const response = await axios.get(
+          "https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/posts?order=created_at.desc&select=*%2Cuser%3Auser_id(*)",
+          {
+            headers: {
+              apikey:
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1meXBudGJzcmR5bWNuYmp0ZGNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQxMjM4ODksImV4cCI6MjAyOTY5OTg4OX0.UehQ_jBquTXgZd6XcDZJU_esJcOd-Ux1erkqLX9Go40",
+            },
+          }
+        );
+        console.log(response.data);
+        setPosts(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
     setIsOpen(false);
     // Call your filtering logic here
   };
@@ -31,13 +52,12 @@ const DropdownFilter = ({ text }) => {
           >
             All
           </a>
-          <a
-            href='#'
+          <span
             className='block px-4 py-2 text-gray-800 hover:bg-gray-200'
-            onClick={() => filterPosts("technology")}
+            onClick={() => filterPosts("desc")}
           >
-            Technology
-          </a>
+            desc
+          </span>
           <a
             href='#'
             className='block px-4 py-2 text-gray-800 hover:bg-gray-200'
