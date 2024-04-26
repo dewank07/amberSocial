@@ -8,12 +8,10 @@ import Sidebar from "@/components/main/Sidebar";
 import Post from "@/components/main/Post";
 import Navbar from "@/components/main/Navbar";
 import supabase from "@/utils/supabaseClient";
-import { useUser } from "@clerk/clerk-react";
 
 const NewDashboard = () => {
   const [isFocused, setIsFocused] = useState(false);
   const ref = useClickOutside(() => setIsFocused(false));
-  const { user } = useUser();
   const [data, setData] = useState([]);
   useEffect(() => {
     getPosts();
@@ -24,6 +22,7 @@ const NewDashboard = () => {
   };
   return (
     <>
+      <Navbar />
       <div className='mainContainer'>
         <Sidebar />
 
@@ -51,7 +50,7 @@ const NewDashboard = () => {
             className={`createPostWidget ${isFocused ? "active" : ""}`}
           >
             <div className='createInput'>
-              <img src={user?.imageUrl} alt='' />
+              <img src='/assets/image/avatar_default.jpg' alt='' />
               <input
                 type='text'
                 placeholder="What's on your mind, Jhon Doe?"

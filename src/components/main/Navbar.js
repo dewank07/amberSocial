@@ -8,7 +8,9 @@ import { RiQuestionFill } from "react-icons/ri";
 import userData from "@/utils/UserData";
 import { motion } from "framer-motion";
 import { useClickOutside } from "@mantine/hooks";
-
+import { UserButton } from "@clerk/nextjs";
+import Image from "next/image";
+import LOGO from "@/assets/logo.png";
 const Navbar = () => {
   const [isFocused, setIsFocused] = useState(false);
   const ref = useClickOutside(() => setIsFocused(false));
@@ -38,7 +40,7 @@ const Navbar = () => {
     <>
       <div className='inNavbar'>
         <Link href={"/"} className='inLogo'>
-          Amber Social
+          <Image src={LOGO} width={100} height={20} />
         </Link>
         <div
           ref={ref}
@@ -117,63 +119,7 @@ const Navbar = () => {
           <label className='inBtn' htmlFor='createNewPost'>
             Create
           </label>
-          <div className='userProfile'>
-            <div
-              className='userImage'
-              onClick={() => setProfileMenu(!ProfileMenu)}
-            >
-              <img
-                src={"/assets/image/avatar_default.jpg"}
-                alt='User Profile Pic'
-              />
-            </div>
-            <motion.div
-              className='userProfileDropdown'
-              initial={{ y: 40, opacity: 0, pointerEvents: "none" }}
-              animate={{
-                y: !ProfileMenu ? -30 : [0, 30, 10],
-                opacity: ProfileMenu ? 1 : 0,
-                pointerEvents: ProfileMenu ? "auto" : "none",
-                zIndex: 999999,
-              }}
-              transition={{ duration: 0.48 }}
-            >
-              <div className='profileWrapper'>
-                <img
-                  src={"/assets/image/avatar_default.jpg"}
-                  alt='User Profile Pic'
-                />
-                <div className='profileData'>
-                  <div className='name'>John Doe</div>
-                  <span className='seeProfile'>See Profile</span>
-                </div>
-              </div>
-              <div className='linksWrapper'>
-                <div className='link'>
-                  <div className='leftSide'>
-                    <span className='icon'>
-                      <MdSettings />
-                    </span>
-                    <span className='name'>Settings & Privacy</span>
-                  </div>
-                  <span className='actionIcon'>
-                    <FaAngleRight />
-                  </span>
-                </div>
-                <div className='link'>
-                  <div className='leftSide'>
-                    <span className='icon'>
-                      <RiQuestionFill />
-                    </span>
-                    <span className='name'>Help & Support</span>
-                  </div>
-                  <span className='actionIcon'>
-                    <FaAngleRight />
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
+          <UserButton afterSignOutUrl='/' />
         </div>
       </div>
 

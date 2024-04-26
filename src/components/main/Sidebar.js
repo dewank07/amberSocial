@@ -9,6 +9,7 @@ import {
   FaHome,
 } from "react-icons/fa";
 import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
 
 const links = [
   {
@@ -42,32 +43,34 @@ const links = [
 ];
 
 const Sidebar = () => {
+  const { user } = useUser();
+
   return (
-    <div className="leftSection">
-      <div className="userProfileWidget">
-        <div className="profileImage">
-          <img src={"/assets/image/avatar_default.jpg"} alt="" />
+    <div className='leftSection'>
+      <div className='userProfileWidget'>
+        <div className='profileImage'>
+          <img src={user?.imageUrl} alt='' />
         </div>
-        <div className="userDetails">
-          <Link href={"/Profile"} className="name">
+        <div className='userDetails'>
+          <Link href={"/Profile"} className='name'>
             John Doe
           </Link>
-          <div className="username">@johndoe</div>
+          <div className='username'>@johndoe</div>
         </div>
       </div>
 
-      <div className="inSidebar">
+      <div className='inSidebar'>
         {links.map((link, index) => {
           return (
-            <div className="link" key={index}>
-              <div className="icon">{link.icon}</div>
+            <div className='link' key={index}>
+              <div className='icon'>{link.icon}</div>
               <h3>{link.name}</h3>
             </div>
           );
         })}
       </div>
 
-      <label htmlFor="createNewPost" className="inBtn sidebarCreateBtn">
+      <label htmlFor='createNewPost' className='inBtn sidebarCreateBtn'>
         Create Post
       </label>
     </div>
