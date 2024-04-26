@@ -4,6 +4,7 @@ import Navbar from "@/components/main/Navbar";
 import { Dashboard } from "./dashboard";
 import NewDashboard from "./newDashboard";
 import { CardElement } from "@/components/CardElement";
+import NewMarketplace from "./newMarketplace";
 
 const DashboardLayout = () => {
   return (
@@ -19,7 +20,8 @@ const DashboardLayout = () => {
             <NewDashboard />
           </TabsContent>
           <TabsContent value='password'>
-            <CardElement />
+
+            <NewMarketplace />
           </TabsContent>
         </Tabs>
       </div>
