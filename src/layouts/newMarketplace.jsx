@@ -140,6 +140,18 @@ const NewMarketplace = () => {
         "https://cdn.pixabay.com/photo/2016/04/03/01/24/be-1303912_1280.jpg",
       sellerName: "Bharat",
     },
+    {
+        productName: "Wardrobe",
+        amount: "$250",
+        description:
+          "New wardrobe , in a very good condition.",
+        sellerImage:
+          "https://cdn.pixabay.com/photo/2016/12/09/09/52/girl-1894125_1280.jpg",
+        location: "Delhi, IN",
+        productImage:
+          "https://cdn.pixabay.com/photo/2023/12/20/13/30/wardrobe-8459898_1280.jpg",
+        sellerName: "Shyam",
+      },
 
     // Add more products as needed
   ];
@@ -149,7 +161,7 @@ const NewMarketplace = () => {
       <Sidebar />
       <div style={styles.mainContent}>
         <div style={styles.buttonContainer}>
-          <button onClick={handleSellProduct} style={styles.button}>
+          <button onClick={handleSellProduct} style={styles.button} className='bg-primary'>
             Sell a Product
           </button>
         </div>
@@ -199,6 +211,26 @@ const NewMarketplace = () => {
               </a>
               <p style={styles.productName}>Electronics</p>
             </div>
+            <div style={styles.productItem}>
+              <a href='/appliances'>
+                <img
+                  src='https://cdn.pixabay.com/photo/2015/09/20/14/09/kitchen-948363_1280.jpg'
+                  alt='Home Appliances'
+                  style={styles.productImage}
+                />
+              </a>
+              <p style={styles.productName}>Appliances</p>
+            </div>
+            <div style={styles.productItem}>
+              <a href='/wardrobe'>
+                <img
+                  src='https://cdn.pixabay.com/photo/2021/02/02/16/19/wardrobe-5974515_1280.jpg'
+                  alt='Wardrobe'
+                  style={styles.productImage}
+                />
+              </a>
+              <p style={styles.productName}>Wardrobe</p>
+            </div>
           </div>
         </div>
         <div style={styles.productSearch}>
@@ -243,7 +275,6 @@ const styles = {
     marginBottom: "20px",
   },
   button: {
-    backgroundColor: "red",
     color: "white",
     padding: "15px 30px",
     borderRadius: "30px",
