@@ -8,9 +8,40 @@ import {
 import { FaHeart } from "react-icons/fa";
 import { HiOutlineShare } from "react-icons/hi";
 import { motion } from "framer-motion";
+import supabase from "@/utils/supabaseClient";
 
-const Post = ({ userData }) => {
+const Post = ({ userData, setData }) => {
   const [open, setOpen] = useState(false);
+  const [liked, setLiked] = useState(false);
+  const postLiked = async () => {
+    const { data, error } = await supabase
+      .from("posts")
+      .update({ likes: `${Number(userData?.likes) + 1}` })
+      .eq("id", userData.id)
+      .select();
+    setLiked(true);
+    setData((prev) =>
+      prev.map((item) =>
+        item.id === userData.id ? { ...item, likes: data[0].likes } : item
+      )
+    );
+  };
+  useEffect(() => {
+    const channels = supabase
+      .channel("custom-update-channel")
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "posts" },
+        (data) => {
+          console.log("Change received!", data);
+        }
+      )
+      .subscribe();
+
+    return () => {
+      channels.unsubscribe();
+    };
+  }, [liked]);
   return (
     <>
       <div className='postWrapper'>
@@ -34,7 +65,7 @@ const Post = ({ userData }) => {
         </div>
         <div className='mainPostContent'>
           <motion.img
-            src={userData.media}
+            src={userData?.media}
             alt=''
             className='postImage'
             onClick={() => setOpen(!open)}
@@ -42,20 +73,21 @@ const Post = ({ userData }) => {
           />
         </div>
         <div>
-          <span>{userData.caption}</span>
+          <span>{userData?.caption}</span>
           <span></span>
         </div>
 
         <div className='postFooter'>
           <div className='postActions'>
             <div className='left'>
-              <div className='likeBtn flex items-center justify-center gap-0'>
-                {userData?.likes}
-                {userData?.likes > "5" && userData?.likes !== null ? (
-                  <FaHeart color='red' />
-                ) : (
-                  <HiOutlineHeart />
-                )}
+              <div
+                className='likeBtn flex  items-center justify-center gap-0'
+                onClick={() => {
+                  liked ? setLiked(false) : postLiked();
+                }}
+              >
+                <span className='text-xs'>{userData?.likes}</span>
+                {liked ? <FaHeart color='red' /> : <HiOutlineHeart />}
               </div>
               <div className='commentBtn'>
                 <HiOutlineChatBubbleOvalLeftEllipsis />

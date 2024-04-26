@@ -43,9 +43,9 @@ const NewDashboard = () => {
         <Sidebar />
 
         <div className='mainSection'>
-          <PostForm />
+          <PostForm userData={user} />
           {data?.map((val, index) => {
-            return <Post key={index} userData={val} />;
+            return <Post key={index} setData={setData} userData={val} />;
           })}
         </div>
 
