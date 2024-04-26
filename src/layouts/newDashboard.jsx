@@ -20,6 +20,7 @@ const NewDashboard = () => {
   const [isFocused, setIsFocused] = useState(false);
   const ref = useClickOutside(() => setIsFocused(false));
   const { user } = useUser();
+  const handleAcceptRequest = (request) => {};
 
   return (
     <>
@@ -56,7 +57,12 @@ const NewDashboard = () => {
                     </div>
                   </div>
                   <div className='actions'>
-                    <button className='actionBtn'>Accept</button>
+                    <button
+                      className='actionBtn'
+                      onClick={() => handleAcceptRequest(request)}
+                    >
+                      Accept
+                    </button>
                     <button className='actionBtn'>Reject</button>
                   </div>
                 </div>
