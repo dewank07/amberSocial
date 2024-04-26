@@ -8,6 +8,7 @@ import Sidebar from "@/components/main/Sidebar";
 import Post from "@/components/main/Post";
 import Navbar from "@/components/main/Navbar";
 import supabase from "@/utils/supabaseClient";
+import axios from "axios";
 
 const NewDashboard = () => {
   const [isFocused, setIsFocused] = useState(false);
@@ -17,8 +18,20 @@ const NewDashboard = () => {
     getPosts();
   }, []);
   const getPosts = async () => {
-    let { data: posts, error } = await supabase.from("posts").select("*");
-    setData(posts);
+    try {
+      const response = await axios.get(
+        "https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/posts?select=*%2Cuser%3Auser_id(*)",
+        {
+          headers: {
+            apikey:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1meXBudGJzcmR5bWNuYmp0ZGNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQxMjM4ODksImV4cCI6MjAyOTY5OTg4OX0.UehQ_jBquTXgZd6XcDZJU_esJcOd-Ux1erkqLX9Go40",
+          },
+        }
+      );
+      setData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <>

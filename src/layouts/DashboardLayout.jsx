@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Navbar from "@/components/main/Navbar";
 import { Dashboard } from "./dashboard";
 import NewDashboard from "./newDashboard";
+import { CardElement } from "@/components/CardElement";
 
 const DashboardLayout = () => {
   return (
@@ -17,7 +18,9 @@ const DashboardLayout = () => {
           <TabsContent value='account'>
             <NewDashboard />
           </TabsContent>
-          <TabsContent value='password'>Change your password here.</TabsContent>
+          <TabsContent value='password'>
+            <CardElement />
+          </TabsContent>
         </Tabs>
       </div>
     </>
