@@ -20,7 +20,45 @@ const NewDashboard = () => {
   const [isFocused, setIsFocused] = useState(false);
   const ref = useClickOutside(() => setIsFocused(false));
   const { user } = useUser();
-  const handleAcceptRequest = (request) => {};
+  const handleAcceptRequest = async (request) => {
+    console.log(request);
+    await fetch(
+      `https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/user?id=eq.${request?.responder}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          apikey:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1meXBudGJzcmR5bWNuYmp0ZGNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQxMjM4ODksImV4cCI6MjAyOTY5OTg4OX0.UehQ_jBquTXgZd6XcDZJU_esJcOd-Ux1erkqLX9Go40",
+        },
+        body: JSON.stringify({
+          friends: request?.responder_details?.friends
+            ? [request.initiator, ...request.responder_details.friends]
+            : [request.initiator],
+        }),
+      }
+    );
+    await fetch(
+      `https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/user?id=eq.${request?.initiator}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          apikey:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1meXBudGJzcmR5bWNuYmp0ZGNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQxMjM4ODksImV4cCI6MjAyOTY5OTg4OX0.UehQ_jBquTXgZd6XcDZJU_esJcOd-Ux1erkqLX9Go40",
+        },
+        body: JSON.stringify({
+          friends: request.initiator_details?.friends
+            ? [request.responder, ...request.initiator_details.friends]
+            : [request.responder],
+        }),
+      }
+    );
+
+    await axios.delete(
+      `https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/request?id=eq.${request?.id}`
+    );
+  };
 
   return (
     <>
@@ -47,19 +85,19 @@ const NewDashboard = () => {
                 <div className='requestProfile' key={index}>
                   <div className='details'>
                     <div className='profileImage'>
-                      <img src={val?.initiator?.avatar} alt='avatar' />
+                      <img src={val?.initiator_details?.avatar} alt='avatar' />
                     </div>
                     <div className='userDetails'>
-                      <div className='name'>{val?.initiator?.name}</div>
+                      <div className='name'>{val?.initiator_details?.name}</div>
                       <div className='username'>
-                        {val?.initiator?.user_email}
+                        {val?.initiator_details?.user_email}
                       </div>
                     </div>
                   </div>
                   <div className='actions'>
                     <button
                       className='actionBtn'
-                      onClick={() => handleAcceptRequest(request)}
+                      onClick={() => handleAcceptRequest(val)}
                     >
                       Accept
                     </button>

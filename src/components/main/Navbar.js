@@ -76,9 +76,13 @@ const Navbar = () => {
           <div className='mobileSearchBtn' onClick={() => setSearchPanel(true)}>
             <MdSearch />
           </div>
-          <label className='inBtn' htmlFor='createNewPost'>
-            Create
-          </label>
+          <a
+            className='inBtn'
+            href='https://amberstudent.com/plus'
+            target='_blank'
+          >
+            Explore Amber+
+          </a>
           <UserButton afterSignOutUrl='/' />
         </div>
       </div>

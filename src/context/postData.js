@@ -20,7 +20,7 @@ export const PostProvider = ({ children }) => {
       );
       setPosts(response.data);
       const res = await axios.get(
-        "https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/request?responder=eq.4&select=*,initiator:initiator(*)",
+        `https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/request?responder=eq.4&select=*,initiator_details:initiator(*),responder_details:responder(*)`,
         {
           headers: {
             apikey:

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
-import image from "../qr.png";
+import image from "@/assets/LogoBig.png";
 import Navbar from "@/components/navbar/Navbar";
 
 export default function Example() {
@@ -71,11 +71,23 @@ export default function Example() {
             }}
           />
         </div>
-        <div className='absolute hidden  md:block -rotate-12 bottom-20 -right-12'>
-          <Image src={image} height={150} width={150} alt='tect' />
+        <div className='absolute hidden  md:block -rotate-12 bottom-20 -right-12 '>
+          <Image
+            src={image}
+            height={150}
+            width={150}
+            alt='tect'
+            className='rounded-md'
+          />
         </div>
         <div className='absolute hidden  md:block  -bottom-48 right-96 blur-sm'>
-          <Image src={image} height={250} width={250} alt='tect' />
+          <Image
+            src={image}
+            height={250}
+            width={250}
+            alt='tect'
+            className='rounded-md'
+          />
         </div>
       </div>
     </div>
