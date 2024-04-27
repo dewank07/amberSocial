@@ -23,10 +23,23 @@ const Navbar = () => {
   const { posts, setPosts, fetchPosts } = useContext(PostContext);
 
   const searchUsers = async (value) => {
-    const response = await axios.get(
-      `http://34.42.91.185:5000/BotResponse/${value}`
-    );
-    // search tags
+    if (value !== "") {
+      const response = await axios.get(
+        `http://34.42.91.185:5000/BotResponse/${value}`
+      );
+      const tag = response.data.TAG;
+      const res = await axios.get(
+        `https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/posts?tags=eq.${tag}&select=*,user: user_id(*)`,
+        {
+          headers: {
+            apikey:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1meXBudGJzcmR5bWNuYmp0ZGNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQxMjM4ODksImV4cCI6MjAyOTY5OTg4OX0.UehQ_jBquTXgZd6XcDZJU_esJcOd-Ux1erkqLX9Go40",
+          },
+        }
+      );
+
+      setPosts(res.data);
+    }
   };
   return (
     <>
@@ -49,7 +62,6 @@ const Navbar = () => {
               value={searchValue}
               onFocus={() => setIsFocused(true)}
               onChange={(e) => setSearchValue(e.target.value)}
-              onKeyUp={(e) => searchUsers(e.target.value)}
               onBlur={() => {
                 setIsFocused(false);
               }}
@@ -59,16 +71,16 @@ const Navbar = () => {
                 searchValue.length >= 1 ? "inSearchCloseBtnActive" : ""
               }`}
             >
-              <MdClose
-                className='inIcon'
-                onClick={() => {
-                  setSearchValue("");
-                  setIsFocused(false);
-                  setTimeout(() => {
-                    setSearchedUser(userData);
-                  }, 300);
-                }}
-              />
+              <div className='flex items-center'>
+                <div onClick={(e) => searchUsers(searchValue)}>Search</div>
+                <MdClose
+                  className='inIcon'
+                  onClick={() => {
+                    setSearchValue("");
+                    setIsFocused(false);
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -112,17 +124,24 @@ const Navbar = () => {
             type='text'
             placeholder='Search'
             value={searchValue}
-            onKeyUp={(e) => searchUsers(e.target.value)}
             onChange={(e) => setSearchValue(e.target.value)}
+            onBlur={(e) => {
+              searchUsers(e.target.value);
+            }}
           />
+          <div className='hahah'>
+            <MdSearch className='' />
+          </div>
           {searchValue.length >= 1 && (
-            <MdClose
-              className='inIcon cursor-pointer'
-              onClick={() => {
-                setSearchValue("");
-                setSearchedUser(userData);
-              }}
-            />
+            <>
+              <MdClose
+                className='inIcon cursor-pointer'
+                onClick={() => {
+                  setSearchValue("");
+                  setSearchedUser(userData);
+                }}
+              />
+            </>
           )}
         </div>
 

@@ -2,7 +2,7 @@ import { PostContext } from "@/context/postData";
 import React, { useContext, useState } from "react";
 import axios from "axios";
 
-const DropdownFilter = ({ text }) => {
+const DropdownFilter = ({ text, data }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedTag, setSelectedTag] = useState("");
   const { posts, setPosts, fetchPosts } = useContext(PostContext);
@@ -30,7 +30,12 @@ const DropdownFilter = ({ text }) => {
       } catch (error) {
         console.error(error);
       }
+    } else if (tag === "asec") {
+      fetchPosts();
+    } else if (tag === "1degree") {
+    } else if (tag === "2degree") {
     }
+
     setIsOpen(false);
     // Call your filtering logic here
   };
@@ -45,33 +50,17 @@ const DropdownFilter = ({ text }) => {
       </button>
       {isOpen && (
         <div className='absolute mt-2 w-48 rounded shadow-lg bg-white border border-gray-800'>
-          <a
-            href='#'
-            className='block px-4 py-2 text-gray-800 hover:bg-gray-200'
-            onClick={() => filterPosts("all")}
-          >
-            All
-          </a>
-          <span
-            className='block px-4 py-2 text-gray-800 hover:bg-gray-200'
-            onClick={() => filterPosts("desc")}
-          >
-            desc
-          </span>
-          <a
-            href='#'
-            className='block px-4 py-2 text-gray-800 hover:bg-gray-200'
-            onClick={() => filterPosts("entertainment")}
-          >
-            Entertainment
-          </a>
-          <a
-            href='#'
-            className='block px-4 py-2 text-gray-800 hover:bg-gray-200'
-            onClick={() => filterPosts("sports")}
-          >
-            Sports
-          </a>
+          {data?.map((val, index) => {
+            return (
+              <span
+                key={index}
+                className='block px-4 py-2 text-gray-800 hover:bg-gray-200'
+                onClick={() => filterPosts(val)}
+              >
+                {val}
+              </span>
+            );
+          })}
         </div>
       )}
     </div>

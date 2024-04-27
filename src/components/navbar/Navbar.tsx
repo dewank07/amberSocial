@@ -18,8 +18,8 @@ const Navbar = () => {
       >
         <div className='flex lg:flex-1'>
           <a href='#' className='-m-1.5 p-1.5'>
-            <span className='sr-only'>Qrify</span>
-            <Image className='h-8 w-auto' src={image} alt='text' />
+            <span className='text-primary font-extrabold'>Amber Social</span>
+            {/* <Image className='h-8 w-auto' src={image} alt='text' /> */}
           </a>
         </div>
         <div className='flex lg:hidden'>
@@ -31,17 +31,6 @@ const Navbar = () => {
             <span className='sr-only'>Open main menu</span>
             <Bars3Icon className='h-6 w-6' aria-hidden='true' />
           </button>
-        </div>
-        <div className='hidden lg:flex lg:gap-x-12'>
-          {NAVLINKS?.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className='text-sm font-semibold leading-6 text-gray-900'
-            >
-              {item.name}
-            </a>
-          ))}
         </div>
         <div className='hidden lg:flex lg:flex-1 lg:justify-end'>
           <SignedIn>

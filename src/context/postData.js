@@ -5,6 +5,7 @@ export const PostContext = createContext();
 export const PostProvider = ({ children }) => {
   const [posts, setPosts] = useState([]); // Initialize posts state
   const [request, setRequest] = useState([]); // Initialize posts state
+  const [updateUI, setUpdateUI] = useState(false);
 
   // Function to fetch posts data
   const fetchPosts = async () => {
@@ -18,6 +19,7 @@ export const PostProvider = ({ children }) => {
           },
         }
       );
+      console.log(response.data);
       setPosts(response.data);
       const res = await axios.get(
         `https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/request?responder=eq.4&select=*,initiator_details:initiator(*),responder_details:responder(*)`,
@@ -29,7 +31,6 @@ export const PostProvider = ({ children }) => {
         }
       );
       setRequest(res.data);
-      console.log(res.data);
     } catch (error) {
       console.error(error);
     }
@@ -42,7 +43,15 @@ export const PostProvider = ({ children }) => {
 
   return (
     <PostContext.Provider
-      value={{ posts, setPosts, fetchPosts, setRequest, request }}
+      value={{
+        posts,
+        setPosts,
+        fetchPosts,
+        setRequest,
+        request,
+        updateUI,
+        setUpdateUI,
+      }}
     >
       {children}
     </PostContext.Provider>

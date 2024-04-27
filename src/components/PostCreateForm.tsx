@@ -29,9 +29,16 @@ export function PostForm({ userData }: any) {
       [e.target.name]: e.target.value,
     });
   };
-
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    const response = await axios.get(
+      `http://34.42.91.185:5000/BotResponse/${e.target.value}`
+    );
+    const tag = response.data.TAG;
+    setFormData({
+      ...formData,
+      tags: tag,
+    });
     // Add your form submission logic here
     await axios
       .post(url, formData, { headers })
@@ -112,16 +119,6 @@ export function PostForm({ userData }: any) {
               className='w-full p-2 mb-4 h-24 border border-gray-300 rounded-md'
             ></textarea>
 
-            <label className='block mb-2' htmlFor='tags'>
-              Tags
-            </label>
-            <input
-              type='text'
-              name='tags'
-              onChange={handleChange}
-              value={formData.tags}
-              className='w-full p-2 mb-4 border border-gray-300 rounded-md'
-            />
             <Button type='submit'>Create Post</Button>
           </form>
         </div>
