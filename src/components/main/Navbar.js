@@ -25,7 +25,7 @@ const Navbar = () => {
   const searchUsers = async (value) => {
     if (value !== "") {
       const response = await axios.get(
-        `http://34.42.91.185:5000/BotResponse/${value}`
+        `https://flask.staging-amber.com/BotResponse/${value}`
       );
       const tag = response.data.TAG;
       const res = await axios.get(
