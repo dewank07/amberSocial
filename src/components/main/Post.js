@@ -66,7 +66,7 @@ const Post = ({ userData, setData }) => {
         <div className='mainPostContent'>
           <motion.img
             src={userData?.media}
-            alt=''
+            alt='img'
             className='postImage'
             onClick={() => setOpen(!open)}
             animate={{ scale: open ? 2 : 1 }}

@@ -166,7 +166,7 @@ const Navbar = () => {
                   }}
                 >
                   <div className='profileImage'>
-                    <img src={`${user.profilePic}`} alt='' />
+                    <img src={`${user.profilePic}`} alt='heh' />
                   </div>
                   <h3>{user.name}</h3>
                 </div>

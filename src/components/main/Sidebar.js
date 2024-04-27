@@ -49,7 +49,7 @@ const Sidebar = () => {
     <div className='leftSection'>
       <div className='userProfileWidget'>
         <div className='profileImage'>
-          <img src={user?.avatar} alt='' />
+          <img src={user?.avatar} alt='image' />
         </div>
         <div className='userDetails'>
           <Link href={"/Profile"} className='name'>

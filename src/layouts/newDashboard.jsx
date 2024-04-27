@@ -234,7 +234,7 @@ const NewDashboard = () => {
                         className='actionBtn'
                         onClick={() => handleAcceptRequest(val)}
                       >
-                        Accept
+                        Add Friend
                       </button>
                       <button
                         className='actionBtn'
