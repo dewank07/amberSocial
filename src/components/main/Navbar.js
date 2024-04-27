@@ -45,7 +45,7 @@ const Navbar = () => {
     <>
       <div className='inNavbar'>
         <Link href={"/"} className='inLogo'>
-          <Image src={LOGO} width={100} height={20} />
+          <Image src={LOGO} width={100} height={20} alt='textxs' />
         </Link>
         <div
           ref={ref}

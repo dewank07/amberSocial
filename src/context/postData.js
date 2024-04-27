@@ -20,7 +20,6 @@ export const PostProvider = ({ children }) => {
           },
         }
       );
-      console.log(response.data);
       setPosts(response.data);
     } catch (error) {
       console.error(error);

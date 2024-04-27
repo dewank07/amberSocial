@@ -110,9 +110,7 @@ const NewDashboard = () => {
     if (friendsOne[0].friends) {
       friendsOne[0].friends.forEach(async (friend) => {
         const res = await getFriends(friend);
-        //console.log(res);
         if (res[0].friends) {
-          console.log("array", [...friendsTwo, ...res[0].friends]);
           friendsTwo = [...friendsTwo, ...res[0].friends];
           setFriendSuggestion((state) => [
             ...new Set([...state, ...res[0].friends]),
@@ -120,7 +118,6 @@ const NewDashboard = () => {
         }
       });
     }
-    console.log("final res", friendsTwo);
     //setFriendSuggestion(friendsTwo);
   };
 

@@ -30,9 +30,11 @@ export default function Page() {
           },
         }
       );
-      setUserDetail(res.data[0]);
-      localStorage.setItem("user", JSON.stringify(res.data[0]));
-      router.push("/dashboard");
+      if (res.data[0].length !== 0) {
+        localStorage.setItem("user", JSON.stringify(res.data[0]));
+        setUserDetail(res.data[0]);
+        router.push("/dashboard");
+      }
       // window.location.href = `${window.location.origin}/dashboard`;
     } catch (error) {
       alert("Invalid email or password");
