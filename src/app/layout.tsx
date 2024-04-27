@@ -7,9 +7,8 @@ import { PostProvider } from "@/context/postData";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "QRify | Home",
-  description:
-    "Transforming events with hassle-free ticketing solutions, ensuring every attendee's experience is unforgettable.",
+  title: "Amber Social",
+  description: "Transforming the social experience with the power of Amber.",
 };
 
 export default function RootLayout({
