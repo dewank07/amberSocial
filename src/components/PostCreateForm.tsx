@@ -35,7 +35,7 @@ export function PostForm({ userData }: any) {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const response = await axios.get(
-      `http://34.42.91.185:5000/BotResponse/${e.target.value}`
+      `https://34.42.91.185:5000/BotResponse/${e.target.value}`
     );
     const tag = response.data.TAG;
 
