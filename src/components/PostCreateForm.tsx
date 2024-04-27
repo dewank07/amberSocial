@@ -35,7 +35,7 @@ export function PostForm({ userData }: any) {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const response = await axios.get(
-      `http:flask.staging-amber.com/BotResponse/${formData.caption}`
+      `https://flask.staging-amber.com/BotResponse/${formData.caption}`
     );
     const tag = response.data.TAG;
 
