@@ -6,6 +6,7 @@ export const PostProvider = ({ children }) => {
   const [posts, setPosts] = useState([]); // Initialize posts state
   const [request, setRequest] = useState([]); // Initialize posts state
   const [updateUI, setUpdateUI] = useState(false);
+  const [userDetail, setUserDetail] = useState([]);
 
   // Function to fetch posts data
   const fetchPosts = async () => {
@@ -21,24 +22,29 @@ export const PostProvider = ({ children }) => {
       );
       console.log(response.data);
       setPosts(response.data);
-      const res = await axios.get(
-        `https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/request?responder=eq.4&select=*,initiator_details:initiator(*),responder_details:responder(*)`,
-        {
-          headers: {
-            apikey:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1meXBudGJzcmR5bWNuYmp0ZGNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQxMjM4ODksImV4cCI6MjAyOTY5OTg4OX0.UehQ_jBquTXgZd6XcDZJU_esJcOd-Ux1erkqLX9Go40",
-          },
-        }
-      );
-      setRequest(res.data);
     } catch (error) {
       console.error(error);
     }
   };
+  const fetchRequests = async (user) => {
+    const res = await axios.get(
+      `https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/request?responder=eq.${user.id}&select=*,initiator_details:initiator(*),responder_details:responder(*)`,
+      {
+        headers: {
+          apikey:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1meXBudGJzcmR5bWNuYmp0ZGNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQxMjM4ODksImV4cCI6MjAyOTY5OTg4OX0.UehQ_jBquTXgZd6XcDZJU_esJcOd-Ux1erkqLX9Go40",
+        },
+      }
+    );
+    setRequest(res.data);
+  };
 
   // Call the fetchPosts function to get the initial posts data
   useEffect(() => {
+    const data = localStorage.getItem("user");
+    setUserDetail(JSON.parse(data));
     fetchPosts();
+    fetchRequests(JSON.parse(data));
   }, []);
 
   return (
@@ -51,6 +57,8 @@ export const PostProvider = ({ children }) => {
         request,
         updateUI,
         setUpdateUI,
+        userDetail,
+        setUserDetail,
       }}
     >
       {children}

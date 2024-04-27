@@ -55,11 +55,11 @@ export function PostForm({ userData }: any) {
         <div className='w-[95%] bg-white flex px-4 md:px-8 justify-between items-center py-4 rounded-lg'>
           <div className='flex gap-2 items-center'>
             <img
-              src={userData?.imageUrl}
+              src={userData?.avatar}
               alt='image'
               className='w-10 h-10  rounded-full'
             />
-            <span className=''>Hey! How are you {userData?.firstName}?</span>
+            <span className=''>Hey! How are you {userData?.name}?</span>
           </div>
           <Button className='shadow-xl\'>Create Post</Button>
         </div>

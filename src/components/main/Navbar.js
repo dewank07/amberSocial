@@ -8,7 +8,7 @@ import { RiQuestionFill } from "react-icons/ri";
 import userData from "@/utils/UserData";
 import { motion } from "framer-motion";
 import { useClickOutside } from "@mantine/hooks";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import LOGO from "@/assets/logo.png";
 import axios from "axios";
@@ -78,6 +78,7 @@ const Navbar = () => {
                   onClick={() => {
                     setSearchValue("");
                     setIsFocused(false);
+                    fetchPosts();
                   }}
                 />
               </div>

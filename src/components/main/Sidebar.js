@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { MdSettings } from "react-icons/md";
 import {
   FaBell,
@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
+import { PostContext } from "@/context/postData";
 
 const links = [
   {
@@ -43,19 +44,18 @@ const links = [
 ];
 
 const Sidebar = () => {
-  const { user } = useUser();
-
+  const { userDetail: user } = useContext(PostContext);
   return (
     <div className='leftSection'>
       <div className='userProfileWidget'>
         <div className='profileImage'>
-          <img src={user?.imageUrl} alt='' />
+          <img src={user?.avatar} alt='' />
         </div>
         <div className='userDetails'>
           <Link href={"/Profile"} className='name'>
-            John Doe
+            {user?.name}
           </Link>
-          <div className='username'>@johndoe</div>
+          <div className='username'>{user?.user_email}</div>
         </div>
       </div>
 
