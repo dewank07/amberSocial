@@ -1,11 +1,13 @@
 import { PostContext } from "@/context/ApisData";
 import React, { useContext, useState } from "react";
 import axios from "axios";
+import { API_KEY } from "@/utils/constant";
+import { fetchPosts, getPostDesc } from "@/utils/UserData";
 
 const DropdownFilter = ({ text, data }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedTag, setSelectedTag] = useState("");
-  const { posts, setPosts, fetchPosts } = useContext(PostContext);
+  const { setPosts } = useContext(PostContext);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -15,23 +17,12 @@ const DropdownFilter = ({ text, data }) => {
     setSelectedTag(tag);
     if (tag === "desc") {
       try {
-        console.log("hello");
-        const response = await axios.get(
-          "https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/posts?order=created_at.desc&select=*%2Cuser%3Auser_id(*)",
-          {
-            headers: {
-              apikey:
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1meXBudGJzcmR5bWNuYmp0ZGNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQxMjM4ODksImV4cCI6MjAyOTY5OTg4OX0.UehQ_jBquTXgZd6XcDZJU_esJcOd-Ux1erkqLX9Go40",
-            },
-          }
-        );
-        console.log(response.data);
-        setPosts(response.data);
+        setPosts(await getPostDesc());
       } catch (error) {
         console.error(error);
       }
     } else if (tag === "asec") {
-      fetchPosts();
+      setPosts(await fetchPosts());
     } else if (tag === "1degree") {
     } else if (tag === "2degree") {
     }
@@ -54,7 +45,7 @@ const DropdownFilter = ({ text, data }) => {
             return (
               <span
                 key={index}
-                className='block px-4 py-2 text-gray-800 hover:bg-gray-200'
+                className='block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer'
                 onClick={() => filterPosts(val)}
               >
                 {val}

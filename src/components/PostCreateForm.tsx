@@ -1,3 +1,4 @@
+"use Client";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,22 +11,23 @@ import {
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { PostContext } from "@/context/ApisData";
+import { fetchPosts, getPostDesc } from "@/utils/UserData";
+import { API_KEY } from "@/utils/constant";
 
 export function PostForm({ userData }: any) {
+  const { userDetail, setPosts } = useContext(PostContext);
+  const [open, setOpen] = useState(false);
   const url = "https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/posts";
   const headers = {
-    apikey:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1meXBudGJzcmR5bWNuYmp0ZGNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQxMjM4ODksImV4cCI6MjAyOTY5OTg4OX0.UehQ_jBquTXgZd6XcDZJU_esJcOd-Ux1erkqLX9Go40",
+    apikey: API_KEY,
   };
-  const { userDetail, fetchPosts } = useContext(PostContext);
   const [formData, setFormData] = useState({
-    type: "",
+    type: "recommendation",
     media: "",
-    user_id: "",
+    user_id: `${userDetail.id}`,
     caption: "",
     tags: "",
   });
-  const [open, setOpen] = useState(false);
   const handleChange = (e: any) => {
     setFormData({
       ...formData,
@@ -39,21 +41,13 @@ export function PostForm({ userData }: any) {
     );
     const tag = response.data.TAG;
 
-    setFormData((prev) => ({
-      ...prev,
-      tags: tag,
-    }));
+    const data = { ...formData, tags: tag, user_id: `${userDetail.id}` };
     // Add your form submission logic here
-    await axios
-      .post(url, formData, { headers })
-      .then((response) => {
-        // console.log(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    await axios.post(url, data, { headers }).catch((error) => {
+      console.error(error);
+    });
+    setPosts(await getPostDesc());
     setOpen(false);
-    fetchPosts();
   };
 
   return (
@@ -104,16 +98,6 @@ export function PostForm({ userData }: any) {
               name='media'
               onChange={handleChange}
               value={formData.media}
-              className='w-full p-2 mb-4 border border-gray-300 rounded-md'
-            />
-            <label className='block mb-2' htmlFor='media'>
-              User Id
-            </label>
-            <input
-              type='text'
-              name='user_id'
-              onChange={handleChange}
-              value={formData.user_id}
               className='w-full p-2 mb-4 border border-gray-300 rounded-md'
             />
 

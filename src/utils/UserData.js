@@ -148,3 +148,15 @@ export const fetchData = async (userDetail) => {
   // // setFriendSuggestion(addFriendsResponse);
   return [postsResponse, requestsResponse, addFriendsResponse];
 };
+
+export const getPostDesc = async () => {
+  const response = await axios.get(
+    "https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/posts?order=created_at.desc&select=*%2Cuser%3Auser_id(*)",
+    {
+      headers: {
+        apikey: API_KEY,
+      },
+    }
+  );
+  return response.data;
+};

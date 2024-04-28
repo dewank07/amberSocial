@@ -10,6 +10,7 @@ import LOGO from "@/assets/logo.png";
 import axios from "axios";
 import { PostContext } from "@/context/ApisData";
 import { API_KEY } from "@/utils/constant";
+import { fetchPosts } from "@/utils/UserData";
 const Navbar = () => {
   const [isFocused, setIsFocused] = useState(false);
   const ref = useClickOutside(() => setIsFocused(false));
@@ -17,7 +18,7 @@ const Navbar = () => {
   const [ProfileMenu, setProfileMenu] = useState(false);
   // const [searchedUser, setSearchedUser] = useState(userData);
   const [searchPanel, setSearchPanel] = useState(false);
-  const { posts, setPosts, fetchPosts } = useContext(PostContext);
+  const { posts, setPosts } = useContext(PostContext);
 
   const searchUsers = async (value) => {
     if (value !== "") {
@@ -71,10 +72,10 @@ const Navbar = () => {
                 <div onClick={(e) => searchUsers(searchValue)}>Search</div>
                 <MdClose
                   className='inIcon'
-                  onClick={() => {
+                  onClick={async () => {
                     setSearchValue("");
                     setIsFocused(false);
-                    fetchPosts();
+                    setPosts(await fetchPosts());
                   }}
                 />
               </div>
