@@ -2,23 +2,20 @@
 import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { MdSearch, MdClose, MdSettings } from "react-icons/md";
-import { FaAngleRight } from "react-icons/fa";
 import { FaAngleDown, FaFaceFrown } from "react-icons/fa6";
-import { RiQuestionFill } from "react-icons/ri";
-import userData from "@/utils/UserData";
 import { motion } from "framer-motion";
 import { useClickOutside } from "@mantine/hooks";
-import { UserButton, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import LOGO from "@/assets/logo.png";
 import axios from "axios";
-import { PostContext } from "@/context/postData";
+import { PostContext } from "@/context/ApisData";
+import { API_KEY } from "@/utils/constant";
 const Navbar = () => {
   const [isFocused, setIsFocused] = useState(false);
   const ref = useClickOutside(() => setIsFocused(false));
   const [searchValue, setSearchValue] = useState("");
   const [ProfileMenu, setProfileMenu] = useState(false);
-  const [searchedUser, setSearchedUser] = useState(userData);
+  // const [searchedUser, setSearchedUser] = useState(userData);
   const [searchPanel, setSearchPanel] = useState(false);
   const { posts, setPosts, fetchPosts } = useContext(PostContext);
 
@@ -32,8 +29,7 @@ const Navbar = () => {
         `https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/posts?tags=eq.${tag}&select=*,user: user_id(*)`,
         {
           headers: {
-            apikey:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1meXBudGJzcmR5bWNuYmp0ZGNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQxMjM4ODksImV4cCI6MjAyOTY5OTg4OX0.UehQ_jBquTXgZd6XcDZJU_esJcOd-Ux1erkqLX9Go40",
+            apikey: API_KEY,
           },
         }
       );
@@ -96,7 +92,6 @@ const Navbar = () => {
           >
             Explore Amber+
           </a>
-          <UserButton afterSignOutUrl='/' />
         </div>
       </div>
 
@@ -144,35 +139,6 @@ const Navbar = () => {
               />
             </>
           )}
-        </div>
-
-        <div className='mobileSearchResult'>
-          {searchedUser.map((user, index) => {
-            if (user.error) {
-              return (
-                <div className='noUserFound' key={index}>
-                  <FaFaceFrown />
-                  <h3>Sorry {user.error}</h3>
-                </div>
-              );
-            } else {
-              return (
-                <div
-                  className='mobileSearchItem'
-                  key={index}
-                  onClick={() => {
-                    setSearchValue(user.name);
-                    setSearchPanel(false);
-                  }}
-                >
-                  <div className='profileImage'>
-                    <img src={`${user.profilePic}`} alt='heh' />
-                  </div>
-                  <h3>{user.name}</h3>
-                </div>
-              );
-            }
-          })}
         </div>
       </motion.div>
     </>

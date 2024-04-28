@@ -1,10 +1,8 @@
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Navbar from "@/components/main/Navbar";
-import { Dashboard } from "./dashboard";
-import NewDashboard from "./newDashboard";
-import { CardElement } from "@/components/CardElement";
-import NewMarketplace from "./newMarketplace";
+import Dashboard from "./Dashboard";
+import Marketplace from "./Marketplace";
 
 const DashboardLayout = () => {
   return (
@@ -17,11 +15,10 @@ const DashboardLayout = () => {
             <TabsTrigger value='password'>Market Place</TabsTrigger>
           </TabsList>
           <TabsContent value='account'>
-            <NewDashboard />
+            <Dashboard />
           </TabsContent>
           <TabsContent value='password'>
-
-            <NewMarketplace />
+            <Marketplace />
           </TabsContent>
         </Tabs>
       </div>

@@ -1,6 +1,6 @@
 "use client";
-import Example from "@/layouts/home";
+import HomeLayout from "@/layouts/HomeLayout";
 
 export default function Home() {
-  return <Example />;
+  return <HomeLayout />;
 }

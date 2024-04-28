@@ -2,10 +2,7 @@
 import React, { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { NAVLINKS } from "@/utils/constant";
-import image from "@/QRify.png";
-import Image from "next/image";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
@@ -33,17 +30,12 @@ const Navbar = () => {
           </button>
         </div>
         <div className='hidden lg:flex lg:flex-1 lg:justify-end'>
-          <SignedIn>
-            <UserButton afterSignOutUrl='/' />
-          </SignedIn>
-          <SignedOut>
-            <a
-              href='/signin'
-              className='text-sm font-semibold leading-6 text-gray-900'
-            >
-              Log in <span aria-hidden='true'>&rarr;</span>
-            </a>
-          </SignedOut>
+          <a
+            href='/signin'
+            className='text-sm font-semibold leading-6 text-gray-900'
+          >
+            Log in <span aria-hidden='true'>&rarr;</span>
+          </a>
         </div>
       </nav>
       <Dialog

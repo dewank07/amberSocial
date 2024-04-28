@@ -16,8 +16,8 @@ const Post = ({ userData, setData }) => {
   const postLiked = async () => {
     const { data, error } = await supabase
       .from("posts")
-      .update({ likes: `${Number(userData?.likes) + 1}` })
-      .eq("id", userData.id)
+      .update({ likes: `${Number(userData?.likes || 0) + 1}` })
+      .eq("id", userData?.id)
       .select();
     setLiked(true);
     setData((prev) =>

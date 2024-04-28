@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { PostContext } from "@/context/postData";
+import { PostContext } from "@/context/ApisData";
 
 export function PostForm({ userData }: any) {
   const url = "https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/posts";
@@ -21,7 +21,7 @@ export function PostForm({ userData }: any) {
   const [formData, setFormData] = useState({
     type: "",
     media: "",
-    user_id: userDetail.id,
+    user_id: "",
     caption: "",
     tags: "",
   });
@@ -104,6 +104,16 @@ export function PostForm({ userData }: any) {
               name='media'
               onChange={handleChange}
               value={formData.media}
+              className='w-full p-2 mb-4 border border-gray-300 rounded-md'
+            />
+            <label className='block mb-2' htmlFor='media'>
+              User Id
+            </label>
+            <input
+              type='text'
+              name='user_id'
+              onChange={handleChange}
+              value={formData.user_id}
               className='w-full p-2 mb-4 border border-gray-300 rounded-md'
             />
 

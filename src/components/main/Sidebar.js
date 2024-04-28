@@ -9,8 +9,7 @@ import {
   FaHome,
 } from "react-icons/fa";
 import Link from "next/link";
-import { useUser } from "@clerk/nextjs";
-import { PostContext } from "@/context/postData";
+import { PostContext } from "@/context/ApisData";
 
 const links = [
   {

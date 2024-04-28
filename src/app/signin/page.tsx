@@ -1,9 +1,11 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { PostContext } from "@/context/postData";
 import axios from "axios";
 import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
+import { API_KEY } from "@/utils/constant";
+import { PostContext } from "@/context/ApisData";
+import { fetchData } from "@/utils/UserData";
 
 export default function Page() {
   const router = useRouter();
@@ -11,7 +13,8 @@ export default function Page() {
     email: "",
     password: "",
   });
-  const { setUserDetail } = useContext(PostContext);
+  const { setPosts, setRequest, setUserDetail, setFriendSuggestion } =
+    useContext(PostContext);
   const handleChange = (e: any) => {
     setFormData({
       ...formData,
@@ -25,14 +28,18 @@ export default function Page() {
         `https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/user?user_email=eq.${formData.email}&password=eq.${formData.password}`,
         {
           headers: {
-            apikey:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1meXBudGJzcmR5bWNuYmp0ZGNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQxMjM4ODksImV4cCI6MjAyOTY5OTg4OX0.UehQ_jBquTXgZd6XcDZJU_esJcOd-Ux1erkqLX9Go40",
+            apikey: API_KEY,
           },
         }
       );
       if (res.data[0].length !== 0) {
         localStorage.setItem("user", JSON.stringify(res.data[0]));
-        setUserDetail(res.data[0]);
+        const userData = res.data[0];
+        setUserDetail(userData);
+        const [posts, request, friends] = await fetchData(userData);
+        setPosts(posts);
+        setRequest(request);
+        setFriendSuggestion(friends);
         router.push("/dashboard");
       }
       // window.location.href = `${window.location.origin}/dashboard`;

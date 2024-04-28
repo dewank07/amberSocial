@@ -1,4 +1,4 @@
-import { PostContext } from "@/context/postData";
+import { PostContext } from "@/context/ApisData";
 import React, { useContext, useState } from "react";
 import axios from "axios";
 

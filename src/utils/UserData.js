@@ -1,64 +1,150 @@
-const userData = [
-  {
-    name: "Phillip Tønder",
-    username: "@johndoe",
-    profilePic:
-      "https://images.unsplash.com/photo-1505695716405-61e75ecc5bab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8Z2lybCxib3l8fHx8fHwxNjg5NzcxMTE5&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
-    storyImage:
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8bWVuLGdpcmwsd29tZW4sYm95fHx8fHx8MTY4OTc3MTI3Mw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
-    postImg:
-      "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
-  },
-  {
-    name: "Sophie Alexander",
-    username: "@johndoe",
-    profilePic:
-      "https://images.unsplash.com/photo-1516050327434-9d06ea9bfae8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8Z2lybCxib3l8fHx8fHwxNjg5NzcxMDU5&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
-    storyImage:
-      "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8bWVuLGdpcmwsd29tZW4sYm95fHx8fHx8MTY4OTc3MTI5MQ&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
-    postImg:
-      "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1274&q=80",
-  },
-  {
-    name: "Petra Renaud",
-    username: "@johndoe",
-    profilePic:
-      "https://images.unsplash.com/photo-1509924603848-aca5e5f276d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8Z2lybCxib3l8fHx8fHwxNjg5NzcxMTM1&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
-    storyImage:
-      "https://images.unsplash.com/photo-1470468969717-61d5d54fd036?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8bWVuLGdpcmwsd29tZW4sYm95fHx8fHx8MTY4OTc3MTI1Ng&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
-    postImg:
-      "https://images.unsplash.com/photo-1504593811423-6dd665756598?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
-  },
-  {
-    name: "Buse Ertürk",
-    username: "@johndoe",
-    profilePic:
-      "https://images.unsplash.com/photo-1513906029980-32d13afe6d8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8Z2lybCxib3l8fHx8fHwxNjg5NzcxMTQ4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
-    storyImage:
-      "https://images.unsplash.com/photo-1543312152-3ec662727229?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8bWVuLGdpcmwsd29tZW4sYm95fHx8fHx8MTY4OTc3MTIzNw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
-    postImg:
-      "https://images.unsplash.com/photo-1555952517-2e8e729e0b44?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80",
-  },
-  {
-    name: "Ekansh Gupta",
-    username: "@johndoe",
-    profilePic:
-      "https://images.unsplash.com/photo-1450297756549-a553121ddff2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8Z2lybCxib3l8fHx8fHwxNjg5NzcxMTYx&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
-    storyImage:
-      "https://images.unsplash.com/photo-1665029541867-3a6ac3fafd89?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8bWVuLGdpcmwsd29tZW4sYm95fHx8fHx8MTY4OTc3MTIyMQ&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
-    postImg:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
-  },
-  {
-    name: "Chloe Moore",
-    username: "@johndoe",
-    profilePic:
-      "https://images.unsplash.com/photo-1550155864-3033f844da36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8Z2lybCxib3l8fHx8fHwxNjg5NzcxMTcz&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
-    storyImage:
-      "https://images.unsplash.com/photo-1595121052771-b75779905b61?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8bWVuLGdpcmwsd29tZW4sYm95fHx8fHx8MTY4OTc3MTE5OA&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
-    postImg:
-      "https://images.unsplash.com/photo-1534083264897-aeabfc7daf8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
-  },
-];
+import axios from "axios";
+import { API_KEY } from "./constant";
 
-export default userData;
+export const handleAcceptRequest = async (request) => {
+  await fetch(
+    `https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/user?id=eq.${request?.responder}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        apikey:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1meXBudGJzcmR5bWNuYmp0ZGNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQxMjM4ODksImV4cCI6MjAyOTY5OTg4OX0.UehQ_jBquTXgZd6XcDZJU_esJcOd-Ux1erkqLX9Go40",
+      },
+      body: JSON.stringify({
+        friends: request?.responder_details?.friends
+          ? [request.initiator, ...request.responder_details.friends]
+          : [request.initiator],
+      }),
+    }
+  );
+  await fetch(
+    `https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/user?id=eq.${request?.initiator}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        apikey:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1meXBudGJzcmR5bWNuYmp0ZGNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQxMjM4ODksImV4cCI6MjAyOTY5OTg4OX0.UehQ_jBquTXgZd6XcDZJU_esJcOd-Ux1erkqLX9Go40",
+      },
+      body: JSON.stringify({
+        friends: request.initiator_details?.friends
+          ? [request.responder, ...request.initiator_details.friends]
+          : [request.responder],
+      }),
+    }
+  );
+  await fetch(
+    `https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/request?id=eq.${request?.id}`,
+    {
+      method: "DELETE",
+      headers: {
+        apikey: API_KEY,
+      },
+    }
+  );
+  fetchPosts();
+};
+
+export const handleRejectRequest = async (request) => {
+  await fetch(
+    `https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/request?id=eq.${request?.id}`,
+    {
+      method: "DELETE",
+      headers: {
+        apikey: API_KEY,
+      },
+    }
+  );
+  fetchPosts();
+};
+
+export const getFriends = async (id) => {
+  const res = await axios.get(
+    `https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/user?id=eq.${id}&select=friends`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        apikey: API_KEY,
+      },
+    }
+  );
+  return res.data;
+};
+
+export const fetchBulkUsers = async (userList) => {
+  const res = await axios.get(
+    `https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/user?id=in.(${userList})`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        apikey: API_KEY,
+      },
+    }
+  );
+  return res.data;
+};
+
+export const fetchPosts = async () => {
+  try {
+    const response = await axios.get(
+      "https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/posts?select=*%2Cuser%3Auser_id(*)",
+      {
+        headers: {
+          apikey: API_KEY,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const fetchRequests = async (user) => {
+  const res = await axios.get(
+    `https://mfypntbsrdymcnbjtdcm.supabase.co/rest/v1/request?responder=eq.${user.id}&select=*,initiator_details:initiator(*),responder_details:responder(*)`,
+    {
+      headers: {
+        apikey: API_KEY,
+      },
+    }
+  );
+  return res.data;
+};
+
+export const getDataFromLocal = () => {
+  const data = localStorage.getItem("user");
+  if (data.length > 0) {
+    return JSON.parse(data);
+  }
+  return [];
+};
+
+export const getSuggestion = async (id) => {
+  const friendsOne = await getFriends(id);
+  const friendsTwoPromises =
+    friendsOne[0].friends?.map(async (friend) => {
+      const res = await getFriends(friend);
+      return res[0].friends || [];
+    }) || [];
+
+  const friendsTwo = (await Promise.all(friendsTwoPromises)).flat();
+
+  const uniqueSuggestions = [
+    ...new Set([...friendsTwo, ...friendsOne[0].friends]),
+  ];
+  return uniqueSuggestions;
+};
+export const fetchData = async (userDetail) => {
+  const [postsResponse, requestsResponse, addFriendsResponse] =
+    await Promise.all([
+      fetchPosts(),
+      fetchRequests(userDetail),
+      getSuggestion(userDetail.id),
+    ]);
+  // setPosts(postsResponse);
+  // setRequest(requestsResponse);
+  // // setFriendSuggestion(addFriendsResponse);
+  return [postsResponse, requestsResponse, addFriendsResponse];
+};

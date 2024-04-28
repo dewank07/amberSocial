@@ -1,9 +1,8 @@
 import Image from "next/image";
-import { useState } from "react";
-import image from "@/assets/LogoBig.png";
+import LogoHero from "@/assets/LogoBig.png";
 import Navbar from "@/components/navbar/Navbar";
 
-export default function Example() {
+export default function HomeLayout() {
   return (
     <div className='bg-white h-screen'>
       <Navbar />
@@ -22,7 +21,7 @@ export default function Example() {
           />
         </div>
         <div className='hidden  md:block absolute rotate-12 bottom-20 -left-12'>
-          <Image src={image} height={350} width={350} alt='tect' />
+          <Image src={LogoHero} height={350} width={350} alt='tect' />
         </div>
         <div className='mx-auto max-w-2xl py-20 sm:py-28 lg:py-36'>
           <div className='hidden sm:mb-8 sm:flex sm:justify-center'>
@@ -73,7 +72,7 @@ export default function Example() {
         </div>
         <div className='absolute hidden  md:block -rotate-12 bottom-20 -right-12 '>
           <Image
-            src={image}
+            src={LogoHero}
             height={150}
             width={150}
             alt='tect'
@@ -82,7 +81,7 @@ export default function Example() {
         </div>
         <div className='absolute hidden  md:block  -bottom-48 right-96 blur-sm'>
           <Image
-            src={image}
+            src={LogoHero}
             height={250}
             width={250}
             alt='tect'

@@ -36,7 +36,7 @@ const ProductSearchCard = ({
   );
 };
 
-const NewMarketplace = () => {
+const Marketplace = () => {
   const handleSellProduct = () => {
     console.log("Selling a product");
   };
@@ -383,4 +383,4 @@ styles.productImage[":hover"] = {
   transform: "scale(1.1)",
 };
 
-export default NewMarketplace;
+export default Marketplace;
